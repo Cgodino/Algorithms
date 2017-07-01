@@ -21,15 +21,48 @@ SList.prototype.addFront = function (value) {
   this.head = node;
   return node;
 };
+// Adding addBack prototype to linked list
+SList.prototype.addBack = function (value) {
+  var node = new ListNode(value);
+  var currentNode = this.head;
+  this._lenght += 1;
+  if (!currentNode) {
+    this.head = node;
+    return node;
+  }
+  while (currentNode.next) {
+    currentNode = currentNode.next;
+  }
+  currentNode.next = node;
+  return node;
+};
 // Adding removeFront prototype to linked list
 SList.prototype.removeFront = function () {
   var node = this.head;
-  this._lenght -= 1;
   if (node === null) {
     return node;
   }
+  this._lenght -= 1;
   this.head = node.next;
   return node;
+};
+// Adding removeBack prototype to linked list
+SList.prototype.removeBack = function () {
+  var currentNode = this.head;
+  var lastValue;
+  if (currentNode === null) {
+    return lastValue;
+  }
+  this._lenght -= 1;
+  while (currentNode.next) {
+    var nextNode = currentNode.next;
+    if (nextNode.next == null) {
+      lastValue = currentNode.next.val;
+      currentNode.next = null;
+      return lastValue;
+    }
+    currentNode = currentNode.next;
+  }
 };
 // Adding lenght prototype
 SList.prototype.mylenght = function () {
@@ -37,18 +70,33 @@ SList.prototype.mylenght = function () {
 };
 // Adding valueFront prototype to linked list
 SList.prototype.valueFront = function () {
-  return this.head.val;
+  var currentNode = this.head;
+  if (currentNode == null) {
+    return null;
+  }
+  return currentNode.val;
+};
+// Adding valueBack prototype to linked list
+SList.prototype.valueBack = function () {
+  var currentNode = this.head;
+  if (currentNode == null) {
+    return null;
+  }
+  while (currentNode.next) {
+    currentNode = currentNode.next;
+  }
+  return currentNode.val;
 };
 // Adding Contains prototype
 SList.prototype.contains = function (value) {
   var isPresent = false;
-  var node = this.head;
-  while (node) {
-    if (node.val == value) {
+  var currentNode = this.head;
+  while (currentNode) {
+    if (currentNode.val == value) {
       isPresent = true;
       break;
     }
-    node = node.next;
+    currentNode = currentNode.next;
   }
   return isPresent;
 }
@@ -66,23 +114,36 @@ SList.prototype.printList = function () {
 
 // Testing linked list
 SingleList = new SList();
+console.log(`Total lenght is: ${ SingleList.mylenght() }`);
 SingleList.addFront("Madrid");
 SingleList.addFront("Berlin");
 SingleList.addFront("Los Angeles");
 console.log(SingleList.printList());
-console.log(SingleList.mylenght());
 SingleList.removeFront();
 console.log(SingleList.printList());
 SingleList.removeFront();
 console.log(SingleList.printList());
-SingleList.removeFront();
-console.log(SingleList.printList());
-console.log(SingleList.mylenght());
+console.log(`Total lenght is: ${ SingleList.mylenght() }`);
 SingleList.addFront("Moscu");
 console.log(SingleList.printList());
 SingleList.addFront("Tokyo");
 console.log(SingleList.printList());
-console.log(SingleList.valueFront());
-console.log(SingleList.contains("Berlin"));
-console.log(SingleList.contains("Moscu"));
-console.log(SingleList.mylenght());
+console.log(`Value Front: ${ SingleList.valueFront() }`);
+console.log(`Berlin is present: ${ SingleList.contains("Berlin") }`);
+console.log(`Moscu is present: ${ SingleList.contains("Moscu") }`);
+console.log(`Total lenght is: ${ SingleList.mylenght() }`);
+SingleList.removeBack();
+console.log(SingleList.printList());
+SingleList.addFront("Buenos Aires");
+SingleList.addFront("Ciudad El Cabo");
+console.log(SingleList.printList());
+SingleList.removeBack();
+console.log(SingleList.printList());
+console.log(`Value Back: ${ SingleList.valueBack() }`);
+SingleList.addBack("Barcelona");
+console.log(SingleList.printList());
+console.log(`Value Back: ${ SingleList.valueBack() }`);
+SingleList.addFront("NYC");
+console.log(SingleList.printList());
+console.log(`Value Front: ${ SingleList.valueFront() }`);
+console.log(`Total lenght is: ${ SingleList.mylenght() }`);
