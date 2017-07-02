@@ -158,17 +158,20 @@ SList.prototype.removeVal = function (value) {
   if (!runner2) {
     if (runner1.val == value) {
       this.head = null;
+      this._lenght -= 1;
     }
     return this.head;
   }
   // At this point both runners exist
   if (runner1.val == value) {
     this.head = runner2;
+    this._lenght -= 1;
     return this.head;
   }
   while (runner2) {
     if (runner2.val == value) {
       runner1.next = runner2.next;
+      this._lenght -= 1;
       return this.head;
     }
     runner1 = runner2;
@@ -228,3 +231,4 @@ SingleList.appendVal("Girona","Buenos Aires");
 console.log(SingleList.printList());
 SingleList.removeVal("NYC");
 console.log(SingleList.printList());
+console.log(`Total lenght is: ${ SingleList.mylenght() }`);
