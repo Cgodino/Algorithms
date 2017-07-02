@@ -178,6 +178,92 @@ SList.prototype.removeVal = function (value) {
     runner2 = runner2.next;
   }
 }
+// Adding min value to Front
+SList.prototype.moveMinFront = function () {
+  // val.length is the value to find moveMinFront
+  var runner1 = this.head;
+  if (!runner1) { return null }
+  var minValue = runner1.val.length;
+  var runner2 = runner1.next;
+  while (runner2) {
+    if ( runner2.val.length < minValue) {
+      minValue = runner2.val.length;
+      runner1 = runner2;
+    }
+    runner2 = runner2.next;
+  }
+  runner2 = this.head;
+  while (runner2) {
+    if (runner2.next.val == runner1.val) {
+      break;
+    }
+    runner2 = runner2.next;
+  }
+  runner2.next = runner1.next;
+  runner1.next = this.head;
+  this.head = runner1;
+}
+// adding Max to Back
+SList.prototype.moveMaxBack = function () {
+  var runner1 = this.head;
+  if (!runner1) { return null };
+  var maxValue = runner1.val.length;
+  var runner2 = runner1.next;
+  while (runner2) {
+    if ( runner2.val.length > maxValue ) {
+      maxValue = runner2.val.length;
+      runner1 = runner2;
+    }
+    runner2 = runner2.next;
+  }
+  runner2 = this.head;
+  while (runner2) {
+    if (runner1 == this.head) { break }
+    if (runner2.next.val == runner1.val) {
+      break;
+    }
+    runner2 = runner2.next;
+  }
+  if ( runner1 == this.head ) {
+    this.head = runner1.next;
+    runner1.next = null;
+  } else {
+    runner2.next = runner1.next;
+    runner1.next = null;
+  }
+  runner2 = this.head;
+  while (runner2.next) {
+    runner2 = runner2.next;
+  }
+  runner2.next = runner1;
+}
+//swaping nodes
+SList.prototype.swapNodes = function (node1, node2) {
+  var runner1 = this.head;
+  var runner2 = this.head;
+  if (!runner1) { return null; }
+  if (runner1.val != node1 ) {
+    while (runner1){
+      if (runner1.next.val == node1 ) { break }
+      runner1 = runner1.next;
+    }
+  } else {
+
+  }
+  if (runner2.val != node2 ) {
+    while (runner2){
+      if (runner2.next.val == node2 ) { break }
+      runner2 = runner2.next;
+    }
+  } else {
+
+  }
+  tmpNode1 = runner1.next;
+  tmpNode2 = runner2.next;
+  runner1.next = runner2.next;
+  runner2.next.next =
+  return null;
+}
 // Adding printList prototype to linked list
 SList.prototype.printList = function () {
   var runner = this.head;
@@ -232,3 +318,13 @@ console.log(SingleList.printList());
 SingleList.removeVal("NYC");
 console.log(SingleList.printList());
 console.log(`Total lenght is: ${ SingleList.mylenght() }`);
+SingleList.moveMinFront();
+console.log(SingleList.printList());
+SingleList.addBack("Vic");
+console.log(SingleList.printList());
+SingleList.moveMinFront();
+console.log(SingleList.printList());
+SingleList.addFront("St. Marti d'Empuries");
+console.log(SingleList.printList());
+SingleList.moveMaxBack();
+console.log(SingleList.printList());
