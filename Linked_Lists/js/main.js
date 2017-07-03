@@ -258,10 +258,12 @@ SList.prototype.swapNodes = function (node1, node2) {
   } else {
 
   }
-  tmpNode1 = runner1.next;
+  tmpNode1 = runner1.next.next;
+  runner1.next.next = runner2.next.next;
+  runner2.next.next = tmpNode1;
   tmpNode2 = runner2.next;
-  runner1.next = runner2.next;
-  runner2.next.next =
+  runner2.next = runner1.next;
+  runner1.next = tmpNode2;
   return null;
 }
 // Adding printList prototype to linked list
@@ -269,7 +271,7 @@ SList.prototype.printList = function () {
   var runner = this.head;
   var result = "";
   while (runner) {
-    result += runner.val;
+    result += "("+runner.val+")";
     runner = runner.next;
     if (runner) { result += " -> " }
   };
@@ -327,4 +329,6 @@ console.log(SingleList.printList());
 SingleList.addFront("St. Marti d'Empuries");
 console.log(SingleList.printList());
 SingleList.moveMaxBack();
+console.log(SingleList.printList());
+SingleList.swapNodes("Barcelona","St. Marti d'Empuries");
 console.log(SingleList.printList());
